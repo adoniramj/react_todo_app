@@ -30,7 +30,7 @@ export default class App extends Component {
     }
   }
 
-  itemReport = () => {
+  itemReport = () => { 
     let itemsDue = this.state.todoItems.filter(item => !item.done).length
     if (itemsDue === 1){
       this.setState({ itemsDue: `${itemsDue} item is due`})
@@ -41,7 +41,19 @@ export default class App extends Component {
     }
   }
 
-  render() {
+  todoTable = () => //Do not use {} after => this will prevent the function from returning any, if used the use return
+     this.state.todoItems.map(item => 
+      <tr key={ item.action }> {/* the keys are for React only */}
+        <td>{ item.action }</td>
+        <td>
+          <input type='checkbox' 
+                 checked={ item.done }
+                 onChange={ () => this.toggleTodo(item)} />
+        </td>
+      </tr>
+    )
+    
+  render() { //the render method is executed everytime the setState method is called.
     return (
       <div>
         <h4 className='bg-primary text-white text-center p-2'>
@@ -57,6 +69,14 @@ export default class App extends Component {
               <button className='btn btn-primary mt-1'
                       onClick={ this.addNewItem }>Add New Item</button>
           </div>
+          <table className='table table-striped table-bordered'>
+            <thead>
+              <tr><th>Description</th><th>Done</th></tr>
+            </thead>
+            <tbody>
+              { this.todoTable() } {/* Since this line of code is inside the render function it will be executed everytime render is executed */}
+            </tbody>
+          </table>
         </div>
       </div>
     )
