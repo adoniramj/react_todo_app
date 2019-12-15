@@ -41,14 +41,19 @@ export default class App extends Component {
     }
   }
 
-  todoTable = () => //Do not use {} after => this will prevent the function from returning any, if used the use return
+  checkTodo = (todo) => {
+    console.log(todo) 
+    this.setState({ todoItems: this.state.todoItems.map(item => item.action === todo.action ? { ...item, done: !item.done } : item) }, 
+    () => this.itemReport())}
+
+  todoTable = () => //Do not use {} after => this will prevent the function from returning anything, if used the use return
      this.state.todoItems.map(item => 
-      <tr key={ item.action }> {/* the keys are for React only */}
+      <tr key={ item.action }>
         <td>{ item.action }</td>
         <td>
           <input type='checkbox' 
                  checked={ item.done }
-                 onChange={ () => this.toggleTodo(item)} />
+                 onChange={ () => this.checkTodo(item)} /> {/* React know which item to pass because each item has onChange event listener */}
         </td>
       </tr>
     )
@@ -70,11 +75,9 @@ export default class App extends Component {
                       onClick={ this.addNewItem }>Add New Item</button>
           </div>
           <table className='table table-striped table-bordered'>
-            <thead>
-              <tr><th>Description</th><th>Done</th></tr>
-            </thead>
+            <thead><tr><th>Description</th><th>Done</th></tr></thead>
             <tbody>
-              { this.todoTable() } {/* Since this line of code is inside the render function it will be executed everytime render is executed */}
+              { this.todoTable() }
             </tbody>
           </table>
         </div>
