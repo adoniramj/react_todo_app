@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { Header } from './Header'
 import ItemsTable from './ItemsTable'
+import { ItemInsertion } from './ItemInsertion'
 
 export default class App extends Component {
 
@@ -27,8 +28,9 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        {/* See the syntax for importing Header and Items table. They are different. */}
+        {/* See the syntax for importing Header and Itemstable. They are different. */}
         <Header name={this.state.userName} tasks={this.state.todoItems}/>
+        <ItemInsertion />
         <ItemsTable tasks={this.state.todoItems} callback={this.toggleDone}/>
       </div>
     )
