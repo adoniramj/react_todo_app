@@ -11,6 +11,11 @@ export class ItemInsertion extends Component {
   ItemChange = (event) => {
     this.setState({ newItem: event.target.value})
   }
+
+  InsertNewItem = () => {
+    this.props.callback(this.state.newItem)
+    this.setState({ newItem: ''})
+  }
   render() {
     return (
       <div className='my-1'>
@@ -18,6 +23,9 @@ export class ItemInsertion extends Component {
             className='form-control'
             value={ this.state.newItem }
             onChange={ this.ItemChange } />
+          <button 
+            className='btn btn-primary mt-1'
+            onClick={ this.InsertNewItem }>Add</button>
       </div>
     )
   }
