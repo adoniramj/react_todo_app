@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
 import { Header } from './Header'
-import ItemsTable from './ItemsTable'
-import { ItemInsertion } from './ItemInsertion'
-import { VisibilityControl } from './VisibilityControl'
-import CompletedItems from './CompletedItems'
+import { IncompleteItems } from './components/IncompleteItems'
+import { ItemInsertion } from './components/ItemInsertion'
+import { VisibilityControl } from './components/VisibilityControl'
+import { CompletedItems } from './components/CompletedItems'
 
 export default class App extends Component {
 
@@ -22,9 +22,9 @@ export default class App extends Component {
     }
   }
   //Use map because we require all the members of todoItems
-  toggleDone = (todo) => this.setState(
+  toggleDone = (actionItem) => this.setState(
     { todoItems: this.state.todoItems.map(
-      item => item.action === todo.action ? {...item, done: !item.done} : item)
+      item => item.action === actionItem.action ? {...item, done: !item.done} : item)
     })
     //createNewItem is set to ItemInsertion as props. 
     //This is required to be defined in App.js because it needs to access todoItems.
@@ -47,15 +47,18 @@ export default class App extends Component {
           name={this.state.userName} 
           tasks={this.state.todoItems}
         />
+
         <ItemInsertion callback={ this.createNewItem }/>
-        {/* Passing the createNewItem function to ItemInsertion component. Notice that inside createNewItem this.state.todoItems "tags" along with the function.*/}
-        <ItemsTable tasks={this.state.todoItems} callback={this.toggleDone}/>
-        
-        <VisibilityControl 
-          description={'Completed tasks'} 
-          callback={this.showCompleted} 
+        <IncompleteItems 
+          todoItems={this.state.todoItems} 
+          callback={this.toggleDone}
         />
-        
+        <div className='bg-secondary text-white text-center p-2'>      
+          <VisibilityControl 
+            description={'Completed tasks'} 
+            callback={this.showCompleted} 
+          />
+        </div>  
         { !this.state.showCompleted ?
           <CompletedItems 
           tasks={ this.state.todoItems } 
