@@ -18,7 +18,7 @@ export default class App extends Component {
        ]
     }
   }
-  
+  //Use map because we require all the members of todoItems
   toggleDone = (todo) => this.setState(
     { todoItems: this.state.todoItems.map(
       item => item.action === todo.action ? {...item, done: !item.done} : item)
