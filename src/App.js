@@ -37,7 +37,7 @@ export default class App extends Component {
       <div>
         {/* See the syntax for importing Header and Itemstable. They are different. */}
         <Header name={this.state.userName} tasks={this.state.todoItems}/>
-        <ItemInsertion callback={ this.createNewItem }/>earning/me?trk=nav_neptune_learning
+        <ItemInsertion callback={ this.createNewItem }/>
         {/* Passing the createNewItem function to ItemInsertion component. Notice that inside createNewItem this.state.todoItems "tags" along with the function.*/}
         <ItemsTable tasks={this.state.todoItems} callback={this.toggleDone}/>
       </div>
