@@ -18,7 +18,7 @@ export default class App extends Component {
        ]
     }
   }
-  
+  //Use map because we require all the members of todoItems
   toggleDone = (todo) => this.setState(
     { todoItems: this.state.todoItems.map(
       item => item.action === todo.action ? {...item, done: !item.done} : item)
@@ -37,7 +37,7 @@ export default class App extends Component {
       <div>
         {/* See the syntax for importing Header and Itemstable. They are different. */}
         <Header name={this.state.userName} tasks={this.state.todoItems}/>
-        <ItemInsertion callback={ this.createNewItem }/>
+        <ItemInsertion callback={ this.createNewItem }/>earning/me?trk=nav_neptune_learning
         {/* Passing the createNewItem function to ItemInsertion component. Notice that inside createNewItem this.state.todoItems "tags" along with the function.*/}
         <ItemsTable tasks={this.state.todoItems} callback={this.toggleDone}/>
       </div>
