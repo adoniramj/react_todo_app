@@ -31,4 +31,3 @@ export class ItemInsertion extends Component {
   }
 }
 
-export default ItemInsertion

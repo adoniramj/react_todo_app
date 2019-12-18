@@ -8,14 +8,14 @@ import React from 'react'
   the item for that row is passed as an argument to toggleDone to change the state of done.
   Since the state of the items is in App.js toggleDone must reside in App.js
   */
-  generateRow(array) {
-   return array.map((item) => {
+  generateRow(tasksArray) {
+   return tasksArray.filter(item => item.done === false).map((item) => {
       return (
         <tr key={item.action}>
           <td>{item.action}</td>
           <td><input 
                 type='checkbox' 
-                checked={item.done}
+                checked={ item.done }
                 onChange={ () => this.props.callback(item)}/></td>
         </tr>
       )

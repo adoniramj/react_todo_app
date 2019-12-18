@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { Header } from './Header'
 import ItemsTable from './ItemsTable'
 import { ItemInsertion } from './ItemInsertion'
+import { VisibilityControl } from './VisibilityControl'
+import CompletedItems from './CompletedItems'
 
 export default class App extends Component {
 
@@ -15,7 +17,8 @@ export default class App extends Component {
          {action: 'Change oil', done: false},
          {action: 'Buy a car', done: false},
          {action: 'Buy another car', done: false}
-       ]
+       ],
+       showCompleted: true
     }
   }
   //Use map because we require all the members of todoItems
@@ -31,15 +34,34 @@ export default class App extends Component {
       }
     }
 
-  //Evert time there is a change in state the render function is executed.
+    showCompleted = () => {
+      this.state.showCompleted === true ? this.setState({showCompleted: false}) : this.setState({showCompleted: true})
+    }
+
+  //Every time there is a change in state the render function is executed.
   render() {
     return (
       <div>
         {/* See the syntax for importing Header and Itemstable. They are different. */}
-        <Header name={this.state.userName} tasks={this.state.todoItems}/>
+        <Header 
+          name={this.state.userName} 
+          tasks={this.state.todoItems}
+        />
         <ItemInsertion callback={ this.createNewItem }/>
         {/* Passing the createNewItem function to ItemInsertion component. Notice that inside createNewItem this.state.todoItems "tags" along with the function.*/}
         <ItemsTable tasks={this.state.todoItems} callback={this.toggleDone}/>
+        
+        <VisibilityControl 
+          description={'Completed tasks'} 
+          callback={this.showCompleted} 
+        />
+        
+        { !this.state.showCompleted ?
+          <CompletedItems 
+          tasks={ this.state.todoItems } 
+          callback={this.toggleDone}
+          /> : null
+        }
       </div>
     )
   }
